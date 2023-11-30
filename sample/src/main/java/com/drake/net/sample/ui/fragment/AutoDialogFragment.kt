@@ -19,6 +19,8 @@ class AutoDialogFragment :
                 param("username", "你的账号")
                 param("password", "123456")
             }.await()
+        }.catch {
+            it.printStackTrace()
         }.finally {
             // 关闭对话框后执行的异常
             if (it is CancellationException) {

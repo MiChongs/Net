@@ -25,6 +25,7 @@
 package com.drake.net.scope
 
 import android.app.Dialog
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.*
 import com.drake.net.NetConfig
@@ -46,7 +47,7 @@ import kotlinx.coroutines.Dispatchers
 @Suppress("DEPRECATION")
 class DialogCoroutineScope(
     val activity: FragmentActivity,
-    var dialog: Dialog? = null,
+    var dialog: AlertDialog? = null,
     val cancelable: Boolean? = null,
     dispatcher: CoroutineDispatcher = Dispatchers.Main
 ) : NetCoroutineScope(dispatcher = dispatcher), LifecycleObserver {

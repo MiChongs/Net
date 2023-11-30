@@ -24,10 +24,14 @@
 
 package com.drake.net.interfaces
 
-import android.app.Dialog
-import android.app.ProgressDialog
+import android.view.Gravity
+import android.view.ViewGroup
+import android.view.Window
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentActivity
 import com.drake.net.R
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+
 
 fun interface NetDialogFactory {
 
@@ -36,13 +40,24 @@ fun interface NetDialogFactory {
      *
      * @param activity 请求发生所在的[FragmentActivity]
      */
-    fun onCreate(activity: FragmentActivity): Dialog
+    fun onCreate(activity: FragmentActivity): AlertDialog
 
     companion object DEFAULT : NetDialogFactory {
-        override fun onCreate(activity: FragmentActivity): Dialog {
-            val progress = ProgressDialog(activity)
-            progress.setMessage(activity.getString(R.string.net_dialog_msg))
-            return progress
+        override fun onCreate(activity: FragmentActivity): AlertDialog {
+            val progress = MaterialAlertDialogBuilder(activity)
+            progress.setView(R.layout.progress_dialog)
+            val dialog = progress.create().apply {
+                if (window != null) {
+                    val attr = window!!.attributes
+                    if (attr != null) {
+                        attr.height = ViewGroup.LayoutParams.WRAP_CONTENT
+                        attr.width = ViewGroup.LayoutParams.WRAP_CONTENT
+                        attr.gravity = Gravity.CENTER //设置dialog 在布局中的位置
+                    }
+                    window?.attributes = attr
+                }
+            }
+            return dialog
         }
     }
 }

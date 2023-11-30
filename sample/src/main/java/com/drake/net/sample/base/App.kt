@@ -53,12 +53,9 @@ class App : Application() {
             // 仅开发模式启用通知栏监听网络日志, 该框架存在下载大文件时内存溢出崩溃请等待官方修复 https://github.com/ChuckerTeam/chucker/issues/1068
             if (BuildConfig.DEBUG) {
                 addInterceptor(
-                    ChuckerInterceptor.Builder(this@App)
-                        .collector(ChuckerCollector(this@App))
-                        .maxContentLength(250000L)
-                        .redactHeaders(emptySet())
-                        .alwaysReadResponseBody(false)
-                        .build()
+                    ChuckerInterceptor.Builder(this@App).collector(ChuckerCollector(this@App))
+                        .maxContentLength(250000L).redactHeaders(emptySet())
+                        .alwaysReadResponseBody(false).build()
                 )
             }
 
@@ -67,11 +64,6 @@ class App : Application() {
 
             // 数据转换器
             setConverter(SerializationConverter())
-
-            // 自定义全局加载对话框
-            setDialogFactory {
-                BubbleDialog(it, "加载中....")
-            }
         }
 
         MockDispatcher.initialize()

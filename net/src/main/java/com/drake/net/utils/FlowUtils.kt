@@ -50,9 +50,7 @@ inline fun <T> Flow<T>.launchIn(
     dispatcher: CoroutineDispatcher = Dispatchers.Main,
     crossinline action: suspend CoroutineScope.(value: T) -> Unit
 ): AndroidScope = AndroidScope(owner, event, dispatcher).launch {
-    this@launchIn.collect(object : FlowCollector<T> {
-        override suspend fun emit(value: T) = action(this@launch, value)
-    })
+    this@launchIn.collect { value -> action(this@launch, value) }
 }
 
 /**

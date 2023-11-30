@@ -24,8 +24,8 @@
 
 package com.drake.net.utils
 
-import android.app.Dialog
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
@@ -58,8 +58,7 @@ import kotlinx.coroutines.Dispatchers
  * @param dispatcher 调度器, 默认运行在[Dispatchers.Main]即主线程下
  */
 fun scope(
-    dispatcher: CoroutineDispatcher = Dispatchers.Main,
-    block: suspend CoroutineScope.() -> Unit
+    dispatcher: CoroutineDispatcher = Dispatchers.Main, block: suspend CoroutineScope.() -> Unit
 ): AndroidScope {
     return AndroidScope(dispatcher = dispatcher).launch(block)
 }
@@ -113,7 +112,7 @@ fun Fragment.scopeLife(
  * @param dispatcher 调度器, 默认运行在[Dispatchers.Main]即主线程下
  */
 fun FragmentActivity.scopeDialog(
-    dialog: Dialog? = null,
+    dialog: AlertDialog? = null,
     cancelable: Boolean? = null,
     dispatcher: CoroutineDispatcher = Dispatchers.Main,
     block: suspend CoroutineScope.() -> Unit
@@ -128,7 +127,7 @@ fun FragmentActivity.scopeDialog(
  * @param dispatcher 调度器, 默认运行在[Dispatchers.Main]即主线程下
  */
 fun Fragment.scopeDialog(
-    dialog: Dialog? = null,
+    dialog: AlertDialog? = null,
     cancelable: Boolean? = null,
     dispatcher: CoroutineDispatcher = Dispatchers.Main,
     block: suspend CoroutineScope.() -> Unit
@@ -150,8 +149,7 @@ fun Fragment.scopeDialog(
  * @param dispatcher 调度器, 默认运行在[Dispatchers.Main]即主线程下
  */
 fun StateLayout.scope(
-    dispatcher: CoroutineDispatcher = Dispatchers.Main,
-    block: suspend CoroutineScope.() -> Unit
+    dispatcher: CoroutineDispatcher = Dispatchers.Main, block: suspend CoroutineScope.() -> Unit
 ): NetCoroutineScope {
     val scope = StateCoroutineScope(this, dispatcher)
     scope.launch(block)
@@ -173,8 +171,7 @@ fun StateLayout.scope(
  * @param dispatcher 调度器, 默认运行在[Dispatchers.Main]即主线程下
  */
 fun PageRefreshLayout.scope(
-    dispatcher: CoroutineDispatcher = Dispatchers.Main,
-    block: suspend CoroutineScope.() -> Unit
+    dispatcher: CoroutineDispatcher = Dispatchers.Main, block: suspend CoroutineScope.() -> Unit
 ): PageCoroutineScope {
     val scope = PageCoroutineScope(this, dispatcher)
     scope.launch(block)
@@ -187,8 +184,7 @@ fun PageRefreshLayout.scope(
  * @param dispatcher 调度器, 默认运行在[Dispatchers.Main]即主线程下
  */
 fun View.scopeNetLife(
-    dispatcher: CoroutineDispatcher = Dispatchers.Main,
-    block: suspend CoroutineScope.() -> Unit
+    dispatcher: CoroutineDispatcher = Dispatchers.Main, block: suspend CoroutineScope.() -> Unit
 ): ViewCoroutineScope {
     val scope = ViewCoroutineScope(this, dispatcher)
     scope.launch(block)
@@ -207,8 +203,7 @@ fun View.scopeNetLife(
  * @param dispatcher 调度器, 默认运行在[Dispatchers.Main]即主线程下
  */
 fun scopeNet(
-    dispatcher: CoroutineDispatcher = Dispatchers.Main,
-    block: suspend CoroutineScope.() -> Unit
+    dispatcher: CoroutineDispatcher = Dispatchers.Main, block: suspend CoroutineScope.() -> Unit
 ) = NetCoroutineScope(dispatcher = dispatcher).launch(block)
 
 /**
